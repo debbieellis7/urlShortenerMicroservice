@@ -25,7 +25,7 @@ mongoose.connect(db.mongoURI, {
 // Allows node to find static content
 app.use(express.static(__dirname +'/public'));
 
-const herokuurl = "boiling-forest-38085.herokuapp.com/";
+const herokuurl = "https://boiling-forest-38085.herokuapp.com/";
 
 // New Route
 app.get('/new/:origUrl(*)', (req, res, next) => {
@@ -50,7 +50,7 @@ app.get('/new/:origUrl(*)', (req, res, next) => {
 			}
 		});
 
-		return res.json({original_url: origUrl, short_url: `http://${fusionURL}` });
+		return res.json({original_url: origUrl, short_url: fusionURL });
 	}
 
 });
