@@ -50,7 +50,7 @@ app.get('/new/:origUrl(*)', (req, res, next) => {
 			}
 		});
 
-		return res.json({ original_url: origUrl, short_url: `http://boiling-forest-38085.herokuapp.com/${short}` });
+		return res.json({ original_url: origUrl, short_url: `https://boiling-forest-38085.herokuapp.com/${short}` });
 	} 
 	
 	return res.json({ error: "Wrong url format, make sure you have a valid protocol and real site." });
@@ -60,7 +60,7 @@ app.get('/new/:origUrl(*)', (req, res, next) => {
 
 
 app.get('/:numLink', (req, res) => {
-	const numLink = req.params.numLink;
+	var numLink = req.params.numLink;
 
 	shortUrl.findOne({"shorterUrl": numLink}, (err, data) => {
 		if(err) throw err;
