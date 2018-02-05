@@ -35,7 +35,7 @@ app.get('/new/:origUrl(*)', (req, res, next) => {
 
 	var short= Math.floor(Math.random()*1000000).toString();
 
-	const fusionURL = `glacial-reef-53856.herokuapp.com/${short}`;
+	const fusionURL = `https://glacial-reef-53856.herokuapp.com/${short}`;
 
 	if(regex.test(origUrl)===true){
 		var data = new shortUrl({
@@ -49,7 +49,7 @@ app.get('/new/:origUrl(*)', (req, res, next) => {
 			}
 		});
 
-		return res.json({original_url: origUrl, short_url: `http://${fusionURL}` });
+		return res.json({original_url: origUrl, short_url: `https://glacial-reef-53856.herokuapp.com/${fusionURL}` });
 	} else{
 		res.json({error: "Wrong url format, make sure you have a valid protocol and real site."});
 	}
