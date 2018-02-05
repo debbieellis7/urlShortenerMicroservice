@@ -68,12 +68,17 @@ app.get('/:numLink', (req, res) => {
 
 	shortUrl.findOne({'shorterUrl': numLink}, (err, data) => {
 		if(err){
-			console.log("an error in database connection finding shortUrl");
+			res.send("an error in database connection finding shortUrl");
 		}
-		var l = data.originalUrl;
 
-		if(l.indexOf("http") == -1){l = "http://"+l}
-			res.redirect(l);
+		var re = new RegExp("^(http|https)://", "i");
+		var stringToCheck = data.originalUrl;
+
+		if(re.test(stringToCheck)){
+			res.redirect(301, data.originalUrl);
+		} else{
+			res.redirect(301, 'http://' + data.originalUrl);
+		}
 	});
 
 	return res.json({ error: "This url is not on the database." });
