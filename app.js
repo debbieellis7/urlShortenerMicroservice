@@ -1,4 +1,3 @@
-var sslRedirect = require('heroku-ssl-redirect');
 const express = require('express');
 const mongoose = require('mongoose');
 
@@ -23,11 +22,6 @@ mongoose.connect(db.mongoURI, {
 	})
 	.catch(err => console.log(err));
 
-// enable ssl redirect
-app.use(sslRedirect());
-
-
-// mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/shortUrls');
 
 
 // Allows node to find static content
@@ -56,7 +50,7 @@ app.get('/new/:origUrl(*)', (req, res, next) => {
 			}
 		});
 
-		return res.json({ original_url: origUrl, short_url: `https://boiling-forest-38085.herokuapp.com/${short}` });
+		return res.json({ original_url: origUrl, short_url: `http://boiling-forest-38085.herokuapp.com/${short}` });
 	} 
 	
 	return res.json({ error: "Wrong url format, make sure you have a valid protocol and real site." });
@@ -75,13 +69,12 @@ app.get('/:numLink', (req, res) => {
 		var stringToCheck = data.originalUrl;
 
 		if(re.test(stringToCheck)){
-			res.send(data.originalUrl);
+			res.redirect(301, data.originalUrl);
 		} else{
-			res.send('http://' + data.originalUrl);
+			res.redirect(301, 'http://' + data.originalUrl);
 		}
 	});
 
-	return res.json({ error: "This url is not on the database." });
 
 });
 
