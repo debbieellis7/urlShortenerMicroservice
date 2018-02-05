@@ -66,7 +66,7 @@ app.get('/new/:origUrl(*)', (req, res, next) => {
 app.get('/:numLink', (req, res) => {
 	const numLink = req.params.numLink;
 
-	shortUrl.findOne({'shorterUrl': numLink}, (err, data) => {
+	shortUrl.findOne({shorterUrl: numLink}, (err, data) => {
 		if(err){
 			res.send("an error in database connection finding shortUrl");
 		}
@@ -79,6 +79,7 @@ app.get('/:numLink', (req, res) => {
 		} else{
 			res.redirect(301, 'http://' + data.originalUrl);
 		}
+		response.end();
 	});
 
 	return res.json({ error: "This url is not on the database." });
