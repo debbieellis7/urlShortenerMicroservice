@@ -54,7 +54,7 @@ app.get('/new/:origUrl(*)', (req, res, next) => {
 			}
 		});
 
-		return res.json({ original_url: origUrl, short_url: `http://localhost:5000/${short}` });
+		return res.json({ original_url: origUrl, short_url: `https://boiling-forest-38085.herokuapp.com/${short}` });
 	} 
 	
 	return res.json({ error: "Wrong url format, make sure you have a valid protocol and real site." });
