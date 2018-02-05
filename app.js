@@ -69,6 +69,8 @@ app.get('/:numLink', (req, res) => {
 
 		if(data){
 			res.redirect(data.originalUrl);
+		} else {
+			return res.json({ error: "This url is not on the database." });
 		}
 		//var re = new RegExp("^(http|https)://", "i");
 		//var stringToCheck = data.originalUrl;
@@ -78,7 +80,6 @@ app.get('/:numLink', (req, res) => {
 		//} else{
 		//	res.redirect('http://' + data.originalUrl);
 		//}
-		return res.json({ error: "This url is not on the database." });
 	});
 
 
