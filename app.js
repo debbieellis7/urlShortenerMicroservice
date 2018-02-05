@@ -52,7 +52,7 @@ app.get('/new/:origUrl(*)', (req, res, next) => {
 			}
 		});
 
-		return res.json({ original_url: origUrl, short_url: `http://localhost:5000/${short}` });
+		return res.json({ original_url: origUrl, short_url: `https://boiling-forest-38085.herokuapp.com/${short}` });
 	} 
 	
 	return res.json({ error: "Wrong url format, make sure you have a valid protocol and real site." });
@@ -69,7 +69,9 @@ app.get('/:numLink', (req, res) => {
 
 		if(data){
 			res.redirect(data.originalUrl);
-		}
+		} 
+		return res.json({ error: "This url is not on the database." });
+		
 		//var re = new RegExp("^(http|https)://", "i");
 		//var stringToCheck = data.originalUrl;
 
