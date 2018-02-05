@@ -49,9 +49,7 @@ app.get('/new/:origUrl(*)', (req, res, next) => {
 			}
 		});
 
-		return res.json({original_url: origUrl, short_url: fusionURL });
-	} else{
-		return res.json({error: "Wrong url format, make sure you have a valid protocol and real site."})
+		return res.json({original_url: origUrl, short_url: `http://${fusionURL}` });
 	}
 
 });
