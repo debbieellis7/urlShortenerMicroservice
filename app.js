@@ -25,6 +25,7 @@ mongoose.connect(db.mongoURI, {
 // Allows node to find static content
 app.use(express.static(__dirname +'/public'));
 
+const herokuurl = "";
 
 // New Route
 app.get('/new/:origUrl(*)', (req, res, next) => {
@@ -35,7 +36,7 @@ app.get('/new/:origUrl(*)', (req, res, next) => {
 
 	var short= Math.floor(Math.random()*1000000).toString();
 
-	const fusionURL = `glacial-reef-53856.herokuapp.com/${short}`;
+	const fusionURL = herokuurl+short;
 
 	if(regex.test(origUrl)===true){
 		var data = new shortUrl({
