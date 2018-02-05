@@ -68,7 +68,7 @@ app.get('/:numLink', (req, res) => {
 		if(err) throw err;
 
 		if(data){
-			res.redirect(301, data.originalUrl);
+			res.redirect(data.originalUrl);
 		} 
 		return res.json({ error: "This url is not on the database." });
 		
