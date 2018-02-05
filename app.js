@@ -12,7 +12,7 @@ const shortUrl = require('./models/shortUrl');
 const db = require('./config/database'); 
 
 // Connect to mongoose
-mongoose.connect(keys.mongoURI, {
+mongoose.connect(db.mongoURI, {
 })
 	.then(() => console.log('MongoDB Connected'))
 	.catch(err => console.log(err));
