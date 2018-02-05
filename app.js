@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 
-const app = express();
+
 
 // Rquire Mongoose Model
 const shortUrl = require('./models/shortUrl');
@@ -12,20 +12,17 @@ const shortUrl = require('./models/shortUrl');
 const db = require('./config/database'); 
 
 // Connect to mongoose
-mongoose.connect(db.mongoURI, {
-
+mongoose.connect(keys.mongoURI, {
 })
-	.then(() => {
-		console.log('MongoDB Connected..');
-	})
+	.then(() => console.log('MongoDB Connected'))
 	.catch(err => console.log(err));
 
+const app = express();
 
 
 // Allows node to find static content
 app.use(express.static(__dirname +'/public'));
 
-const herokuurl = "https://boiling-forest-38085.herokuapp.com/";
 
 // New Route
 app.get('/new/:origUrl(*)', (req, res, next) => {
@@ -35,8 +32,6 @@ app.get('/new/:origUrl(*)', (req, res, next) => {
 	const regex = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
 
 	var short= Math.floor(Math.random()*1000000).toString();
-
-	const fusionURL = herokuurl+short;
 
 	if(regex.test(origUrl)===true){
 		var data = new shortUrl({
@@ -50,7 +45,7 @@ app.get('/new/:origUrl(*)', (req, res, next) => {
 			}
 		});
 
-		return res.json({original_url: origUrl, short_url: fusionURL });
+		return res.json({original_url: origUrl, short_url: `https://boiling-forest-38085.herokuapp.com/${short}` });
 	}
 
 });
