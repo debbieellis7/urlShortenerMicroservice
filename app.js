@@ -1,3 +1,4 @@
+var sslRedirect = require('heroku-ssl-redirect');
 const express = require('express');
 const mongoose = require('mongoose');
 
@@ -22,7 +23,8 @@ mongoose.connect(db.mongoURI, {
 	})
 	.catch(err => console.log(err));
 
-
+// enable ssl redirect
+app.use(sslRedirect());
 
 
 // mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/shortUrls');
@@ -73,9 +75,9 @@ app.get('/:numLink', (req, res) => {
 		var stringToCheck = data.originalUrl;
 
 		if(re.test(stringToCheck)){
-			res.redirect(data.originalUrl);
+			res.send(data.originalUrl);
 		} else{
-			res.redirect('http://' + data.originalUrl);
+			res.send('http://' + data.originalUrl);
 		}
 	});
 
