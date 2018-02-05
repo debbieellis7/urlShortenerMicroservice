@@ -1,6 +1,6 @@
 if(process.env.NODE_ENV === 'production'){
 	module.exports = {
-		mongoURI: 'mongodb://debbie:debbie123@ds125068.mlab.com:25068/urlshortenermicroservice'
+		mongoURI: 'mongodb://loremepsum:loremepsum73@ds225078.mlab.com:25078/urlshorteneryes'
 	}
 } else{
 	module.exports = {

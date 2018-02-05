@@ -7,17 +7,25 @@ const mongoose = require('mongoose');
 // Rquire Mongoose Model
 const shortUrl = require('./models/shortUrl');
 
+const app = express();
+
 
 // Database Config
 const db = require('./config/database'); 
 
 // Connect to mongoose
 mongoose.connect(db.mongoURI, {
+
 })
-	.then(() => console.log('MongoDB Connected'))
+	.then(() => {
+		console.log('MongoDB Connected..');
+	})
 	.catch(err => console.log(err));
 
-const app = express();
+
+
+
+// mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/shortUrls');
 
 
 // Allows node to find static content
@@ -33,6 +41,7 @@ app.get('/new/:origUrl(*)', (req, res, next) => {
 
 	var short= Math.floor(Math.random()*1000000).toString();
 
+
 	if(regex.test(origUrl)===true){
 		var data = new shortUrl({
 			originalUrl: origUrl,
@@ -45,31 +54,31 @@ app.get('/new/:origUrl(*)', (req, res, next) => {
 			}
 		});
 
-		return res.json({original_url: origUrl, short_url: `https://boiling-forest-38085.herokuapp.com/${short}` });
-	}
-
-});
-
-
-app.get("/:short", (req, res) => {
-
-	const short = req.params.short;
-
-	shortUrl.findOne({'shorterUrl': short}, (err, data) => {
-			if(err){
-				return res.send('Error reading database');
-			}
-			var l = data.originalUrl;
-
-			if(l.indexOf("http") == -1){
-				l = "http://"+l;
-				res.redirect(l);
-			}
+		return res.json({ original_url: origUrl, short_url: `http://localhost:5000/${short}` });
+	} 
 	
-		})
+	return res.json({ error: "Wrong url format, make sure you have a valid protocol and real site." });
+	
 
 });
 
+
+app.get('/:numLink', (req, res) => {
+	const numLink = req.params.numLink;
+
+	shortUrl.findOne({'shorterUrl': numLink}, (err, data) => {
+		if(err){
+			console.log("an error in database connection finding shortUrl");
+		}
+		var l = data.originalUrl;
+
+		if(l.indexOf("http") == -1){l = "http://"+l}
+			res.redirect(l);
+	});
+
+	return res.json({ error: "This url is not on the database." });
+
+});
 
 
 
