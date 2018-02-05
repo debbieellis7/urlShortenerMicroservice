@@ -25,7 +25,7 @@ mongoose.connect(db.mongoURI, {
 // Allows node to find static content
 app.use(express.static(__dirname +'/public'));
 
-const herokuurl = "";
+const herokuurl = "boiling-forest-38085.herokuapp.com";
 
 // New Route
 app.get('/new/:origUrl(*)', (req, res, next) => {
