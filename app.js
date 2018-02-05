@@ -68,7 +68,7 @@ app.get('/:numLink', (req, res) => {
 		if(err) throw err;
 
 		if(data){
-			res.redirect(data.originalUrl);
+			res.redirect(301, data.originalUrl);
 		} 
 		return res.json({ error: "This url is not on the database." });
 		
@@ -87,6 +87,6 @@ app.get('/:numLink', (req, res) => {
 
 
 
-app.listen(process.env.PORT || 5000, () => {
+app.listen(process.env.PORT, () => {
 	console.log('Server is running on port 5000');
 });
